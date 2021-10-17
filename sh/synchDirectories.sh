@@ -1,7 +1,7 @@
 #!/bin/bash
 # Name - synchDirectories.sh
-# Purpose - Update files that have been modified or added recently,
-#           to mirror a directory to its backup or to keep a second dir.
+# Purpose - Update files that have been modified, deleted or added recently,
+#           to mirror a directory to its backup or to a different stage dir.
 
 SYNCH='cp -Ruvp'
 
