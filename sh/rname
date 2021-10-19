@@ -1,4 +1,4 @@
-#!/bin/bash
+!/bin/bash
 # Name - Batch_Rename.sh
 # Purpose - Rename a batch of files by globbing their name. Unlike 'mv',
 #           matching files can also be found recursively on child dirs.
@@ -18,7 +18,7 @@ SFX='0'
 PFX='0'
 HELP="\n  Usage\t: $NAME [OPTION] [#] [newString] [Path/To/Dir]\n
   e.g.\t: $NAME -s 4 jpeg ./*.jpg\n
-  Or\t: $NAME -p 11 newString ~/var/logs/LogIn_Info*\n\n
+  or\t: $NAME -p 11 newString ~/var/logs/LogIn_Info*\n\n
 
     -h           print the help message and exit\n
     -p           use a prefix for substitution, changes at the head.\n
@@ -31,10 +31,6 @@ usage() {
   and glob expression, and then rename them according to a prefix/suffix.
 
   %s
-
-  -h           print this help message and exit
-  -p           use a prefix for substitution, changes at the head.
-  -s           use a suffix for substitution, changes at the tail.
 
   ---------------------------------------------------
   -s : by suffix takes 3 arguments, a digit, the new string, and the path:
@@ -72,10 +68,10 @@ if [ "$ARGCOUNT" -gt 0 ]; then
       *) echo -e $HELP 
          exit 1 ;;
     esac
-  done
+  done 2> /dev/null
 else
   echo -e $HELP; exit 1
-fi
+fi 
 
 
 # loop through the files in the path
