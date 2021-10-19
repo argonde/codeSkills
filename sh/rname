@@ -1,0 +1,101 @@
+#!/bin/bash
+# Name - batchRename.sh
+# Purpose - Rename a batch of files by globbing their name. Unlike 'mv',
+#           matching files can also be found recursively on child dirs.
+# Code ex - Glob a directory and rename files "LogIn_Information_v{1..6}"
+#           to "logs_v{1..6} to keep their version and other suffixes.
+# -----------------------------------------------------------------
+
+SFX='0'
+PFX='0'
+HELP="\nUsage\t: $0 -s 4 jpeg ./*.jpg\n
+Or\t: $0 -p 11 newString ~/var/logs/LogIn_Info*\n"
+
+
+# script use manual function
+usage() {
+  printf "  You can use this script to select files, by passing a directory
+  and glob expression, and then rename them according to a prefix/suffix.
+
+  %s
+
+  ---------------------------------------------------
+  -s : by suffix takes 3 arguments, a digit, the new string, and the path:
+  [n+1] first characters to keep with a new end [string] on [path/to/files]
+  
+  example: LogIn_Info_v{1..6}.txt to logs_v{1..6}.log
+
+  Then use: $0 -s 4 log ./*.txt
+
+  To extend a file's name (i.e. provide a file missing estension) use 1
+
+  Use: $0 -s 1 .log ./*
+
+  ---------------------------------------------------
+  -p : by preffix takes three arguments, a digit, the new string, and path:
+  [n+1] first characters to replace with [string] on globbed [path/to/files]
+  
+  example: LogIn_Info_v{1..6}.log to logs_v{1..6}.log
+
+  Then use: $0 -p 11 logs ~/var/logs/LogIn_Info*" "${*}"
+  echo
+  echo
+}
+
+
+# handle input flags and arguments
+if [ "$#" -gt 0 ]; then
+  while getopts "p:s:h" flag; do
+    case $flag in
+      p) if [ "$#" -gt 3 ] && [ "$1" == "-p" ] &&
+         [ "$2" -eq "$2" ] && [[ ! "$3" =~ [/*?\] ]] 2>/dev/null;
+         then PRFX+=("$OPTARG") && PFX=1; else echo -e $HELP; exit 1; fi;;
+      s) if [ "$#" -gt 3 ] && [ "$1" == "-s" ] &&
+         [ "$2" -eq "$2" ] && [[ ! "$3" =~ [/*?\] ]] 2>/dev/null;
+         then SUFX+=("$OPTARG") && SFX=1; else echo -e $HELP; exit 1; fi;;
+      h) clear; HELP=`echo -e $HELP`
+         usage "$HELP"
+         exit 0 ;;
+      *) echo -e $HELP 
+         exit 1 ;;
+    esac
+    # allow to take the first two arguments OPTIND={3}
+    shift $((OPTIND-2))
+  done
+else
+  echo -e $HELP; exit 1
+fi
+
+
+# retrieve arguments to variables
+INPUTPATH="$(eval echo "\${${OPTIND}}")"
+PDIR="$(dirname "$INPUTPATH")"
+# FILTER="$(basename "$INPUTPATH")"
+NEWSTRING="$(eval echo "\$"{2}"")"
+SLEN="$(eval echo "\$"{1}"")"
+
+# TODO implement glob filter on count and execution
+# count the amount of files on the directory
+n=$(ls $PDIR | wc -l)
+# first two values are arguments, start loop ${OPTIND} at 3
+a=3
+# TODO introduce warning path argument must filter target files
+
+
+# loop through the files in the path and rename by prefix
+while [ $a -le $(expr "$n" + 2) ]; do
+  FILES=$(eval echo "\${$a}")
+  FILE="$(basename "$FILES")"
+  if [ "$PFX" -eq 1 ]; then
+    STRING=$(echo "$FILE" | cut -c"$SLEN"-)
+    echo "renaming $FILE to $NEWSTRING$STRING"
+  #  mv "$FILE" "$NEWSTRING$STRING"
+    a=$(( $a+1 ))
+  elif [ "$SFX" -eq 1 ]; then
+    STRING=${FILE:$LEN}
+    echo "renaming $FILE to $STRING$NEWSTRING"
+  #  mv "$FILE" "$STRING$NEWSTRING"
+    a=$(( $a+1 ))
+  fi
+done
+
