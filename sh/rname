@@ -1,16 +1,29 @@
 #!/bin/bash
-# Name - batchRename.sh
+# Name - Batch_Rename.sh
 # Purpose - Rename a batch of files by globbing their name. Unlike 'mv',
 #           matching files can also be found recursively on child dirs.
 # Code ex - Glob a directory and rename files "LogIn_Information_v{1..6}"
 #           to "logs_v{1..6} to keep their version and other suffixes.
 # -----------------------------------------------------------------
 
+
+# retrieve arguments to variables
+ARGCOUNT="$#"
+NAME="$0"
+FLAG="$1"
+CHARS="$2" && echo chars: "$CHARS"
+NSTRING="$3" && echo newStr: "$NSTRING"
+DIRPATH="$4" && echo dirPath: "$DIRPATH"
 SFX='0'
 PFX='0'
-HELP="\nUsage\t: $0 -s 4 jpeg ./*.jpg\n
-Or\t: $0 -p 11 newString ~/var/logs/LogIn_Info*\n"
+HELP="\n  Usage\t: $NAME [OPTION] [#] [newString] [Path/To/Dir]\n
+  e.g.\t: $NAME -s 4 jpeg ./*.jpg\n
+  Or\t: $NAME -p 11 newString ~/var/logs/LogIn_Info*\n\n
 
+    -h           print the help message and exit\n
+    -p           use a prefix for substitution, changes at the head.\n
+    -s           use a suffix for substitution, changes at the tail.\n
+  "
 
 # script use manual function
 usage() {
@@ -19,17 +32,17 @@ usage() {
 
   %s
 
+  -h           print this help message and exit
+  -p           use a prefix for substitution, changes at the head.
+  -s           use a suffix for substitution, changes at the tail.
+
   ---------------------------------------------------
   -s : by suffix takes 3 arguments, a digit, the new string, and the path:
-  [n+1] first characters to keep with a new end [string] on [path/to/files]
+  [n] number of characters to remove by a new [string] on [path/to/files]
   
-  example: LogIn_Info_v{1..6}.txt to logs_v{1..6}.log
+  example: LogIn_Info_v{1..6}.txt to logIn_Info_v{1..6}.log
 
-  Then use: $0 -s 4 log ./*.txt
-
-  To extend a file's name (i.e. provide a file missing estension) use 1
-
-  Use: $0 -s 1 .log ./*
+  Then use: $NAME -s 3 log ./*.txt
 
   ---------------------------------------------------
   -p : by preffix takes three arguments, a digit, the new string, and path:
@@ -37,21 +50,21 @@ usage() {
   
   example: LogIn_Info_v{1..6}.log to logs_v{1..6}.log
 
-  Then use: $0 -p 11 logs ~/var/logs/LogIn_Info*" "${*}"
+  Then use: $NAME -p 11 logs ~/var/logs/LogIn_Info*" "${*}"
   echo
   echo
 }
 
 
 # handle input flags and arguments
-if [ "$#" -gt 0 ]; then
-  while getopts "p:s:h" flag; do
-    case $flag in
-      p) if [ "$#" -gt 3 ] && [ "$1" == "-p" ] &&
-         [ "$2" -eq "$2" ] && [[ ! "$3" =~ [/*?\] ]] 2>/dev/null;
+if [ "$ARGCOUNT" -gt 0 ]; then
+  while getopts "p:s:h" flags; do
+    case $flags in
+      p) if [ "$ARGCOUNT" -gt 3 ] && [ "$FLAG" == "-p" ] &&
+         [ "$CHARS" -eq "$CHARS" ] && [[ ! "$NSTRING" =~ [/*?\] ]] 2>/dev/null;
          then PRFX+=("$OPTARG") && PFX=1; else echo -e $HELP; exit 1; fi;;
-      s) if [ "$#" -gt 3 ] && [ "$1" == "-s" ] &&
-         [ "$2" -eq "$2" ] && [[ ! "$3" =~ [/*?\] ]] 2>/dev/null;
+      s) if [ "$ARGCOUNT" -gt 3 ] && [ "$FLAG" == "-s" ] &&
+         [ "$CHARS" -eq "$CHARS" ] && [[ ! "$NSTRING" =~ [/*?\] ]] 2>/dev/null;
          then SUFX+=("$OPTARG") && SFX=1; else echo -e $HELP; exit 1; fi;;
       h) clear; HELP=`echo -e $HELP`
          usage "$HELP"
@@ -59,43 +72,35 @@ if [ "$#" -gt 0 ]; then
       *) echo -e $HELP 
          exit 1 ;;
     esac
-    # allow to take the first two arguments OPTIND={3}
-    shift $((OPTIND-2))
   done
 else
   echo -e $HELP; exit 1
 fi
 
 
-# retrieve arguments to variables
-INPUTPATH="$(eval echo "\${${OPTIND}}")"
-PDIR="$(dirname "$INPUTPATH")"
-# FILTER="$(basename "$INPUTPATH")"
-NEWSTRING="$(eval echo "\$"{2}"")"
-SLEN="$(eval echo "\$"{1}"")"
-
-# TODO implement glob filter on count and execution
-# count the amount of files on the directory
-n=$(ls $PDIR | wc -l)
-# first two values are arguments, start loop ${OPTIND} at 3
+# loop through the files in the path
 a=3
-# TODO introduce warning path argument must filter target files
-
-
-# loop through the files in the path and rename by prefix
-while [ $a -le $(expr "$n" + 2) ]; do
+while [ $a -le $(expr "$ARGCOUNT" - 1) ]; do
   FILES=$(eval echo "\${$a}")
   FILE="$(basename "$FILES")"
+
+  # rename by prefix
   if [ "$PFX" -eq 1 ]; then
-    STRING=$(echo "$FILE" | cut -c"$SLEN"-)
-    echo "renaming $FILE to $NEWSTRING$STRING"
-  #  mv "$FILE" "$NEWSTRING$STRING"
+    STRING=$(echo "$FILE" | cut -c"$CHARS"-)
+    echo "renaming $FILE to $NSTRING$STRING"
+  #  mv "$FILE" "$NSTRING$STRING"
     a=$(( $a+1 ))
+
+  # rename by suffix
   elif [ "$SFX" -eq 1 ]; then
-    STRING=${FILE:$LEN}
-    echo "renaming $FILE to $STRING$NEWSTRING"
-  #  mv "$FILE" "$STRING$NEWSTRING"
+    if [ $CHARS -eq 0 ]; then
+      echo "renaming $FILE to $FILE$NSTRING"
+  #    mv "$FILE" "$FILE$NSTRING"
+    else
+      STRING=${FILE::-$CHARS}
+      echo "renaming $FILE to $STRING$NSTRING"
+  #    mv "$FILE" "$STRING$NSTRING"
+    fi
     a=$(( $a+1 ))
   fi
 done
-
