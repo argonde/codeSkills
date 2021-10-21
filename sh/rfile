@@ -1,34 +1,69 @@
 #!/bin/bash
-# Name - readFile.sh
+# Name - Read_File.sh
 # Purpose - Improve the readability of files printed by line on terminal.
 
 clear
-
-LINE=
-
-if [ ! -r "$1" ]; then
-  echo "Cannot find file: \"$1\"" 1>&2
-  echo -e "Syntax reminder: $0 [FILE] [y/n] \n" >&2
-  exit 1
-
-elif [ "$#" -eq 2 ] && [[ "$2" =~ (^[yn]$) ]]; then
-  case "$2" in
-  'y')
-    nl -w2 -ba -s'> ' "$1"
-    ;;
-  'n')
-    IFS=
-      while read LINE
-        do
-          echo "$LINE"
-        done <"$1"
-    ;;
-    esac
-
-else
-  echo -e "Syntax help: $0 [FILE] [y/n]\n" >&2
-  exit 1
-fi
 echo
+# Declare variables to catch them out of loops
+LINE=''
+F=''
+R=''
+W=''
+E=''
 
+# If the user wants to evaluate a file, raise flags according to test results
+if [ $1 == '-e' ]; then
+  if [ -f "$2" ]; then F='1'; else F='0'; fi  # test whether the file exists
+  if [ -r "$2" ]; then R='1'; else R='0'; fi  # test the file read permission
+  if [ -w "$2" ]; then W='1'; else W='0'; fi  # test the file write permission
+  if [ -s "$2" ]; then E='1'; else E='0'; fi  # test whether the file is empty
+
+  # Binary code for the eight possible reporting outcomes, if file exists
+  CODE=$F$R$W$E
+  case $CODE in
+    1000) echo $2 exists, though it is empty, not readable, nor writable.;;
+    1100) echo $2 is readable, but not writable and it is empty.;;
+    1010) echo $2 is writable, but not readable and it is empty.;;
+    1001) echo $2 is neither readable, nor writable, but it is not empty.;;
+    1110) echo $2 is readable and writable, but it is empty.;;
+    1011) echo $2 is not empty. It is writable but not readable.;;
+    1101) echo $2 is not empty. It is readable, but not writable.;;
+    1111) echo $2 is not empty. It is readable and writable.;;
+    *) echo Either $2 does not exist, or it is not a file;;
+  esac
+  echo
+
+# If the user does not use the [-e] option, the she/he wants to read the file
+else
+  # check whether the file exists
+  if [ ! -r "$1" ]; then
+    echo "Cannot find file: \"$1\"" 1>&2
+    echo -e "Syntax reminder: $0 [-e] [FILE] [y/n] \n" >&2
+    exit 1
+  
+  #If the file exists, check that the second argument is either yes/no
+  elif [ "$#" -eq 2 ] && [[ "$2" =~ (^[yn]$) ]]; then
+    case "$2" in
+    
+    # yes activates line numbering, as with ':set number' in Vim
+    'y')
+      nl -w2 -ba -s'> ' "$1"
+      ;;
+
+    # no shows the plain text after just clearing the screen
+    'n')
+      IFS=
+        while read LINE
+          do
+            echo "$LINE"
+          done <"$1"
+      ;;
+      esac
+
+  else
+    echo -e "Syntax help: $0 [-e] [FILE] [y/n]\n" >&2
+    exit 1
+  fi
+echo
+fi
 exit 0
