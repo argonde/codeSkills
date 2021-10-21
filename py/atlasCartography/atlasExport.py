@@ -1,10 +1,8 @@
-#!/usr/bin/python3
+#!/usr/bin/ python3
 # -*- coding: utf-8 -*-
-# auth: Ruben López Vázquez
 # Generates PDFs or images from a QGIS Atlas composition.
-# -----------------------------------------------------------------
 
-
+# import libraries ####
 import sys
 import qgis.core as q
 import argparse
