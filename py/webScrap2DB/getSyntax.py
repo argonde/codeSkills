@@ -1,10 +1,6 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
 # auth: Ruben López Vázquez
-# scraps publically available Q&A data on programming languages,
-# from sites like stackexchange.com
-# -----------------------------------------------------------------
-
 
 import requests
 from bs4 import BeautifulSoup
