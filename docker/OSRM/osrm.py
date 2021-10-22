@@ -25,7 +25,7 @@ parser.add_argument('-N',
                     help='Usage: Override default csv output name')
 parser.parse_args()
 
-# Hardcoded variables here, or use flags to override defaults
+# Declare hardcoded variables, use flags to override them
 # -D = Directory ("c:your/output" - include trailing "/")
 directory_loc = r"P:/Company/department/team/workingDirectory/employee/" \
                 r"projectNumber/transportAnalysis/"
@@ -34,7 +34,7 @@ csv_input = 'abTransport.csv'
 # -N = output Name
 csv_output = 'osrm_output.csv'
 
-# Setting variables using flags ####
+# reset variables according to received flags
 if '-D' in sys.argv:
     directory_loc = sys.argv[sys.argv.index('-D') + 1]
 if '-P' in sys.argv:
@@ -42,14 +42,14 @@ if '-P' in sys.argv:
 if '-N' in sys.argv:
     csv_output = sys.argv[sys.argv.index('-N') + 1]
 
-# Project variables
+# Declare project variables
 dataIn = os.path.join(directory_loc, csv_input)
 result = os.path.join(directory_loc, csv_output)
 columns = ['Id', 'Mængde', 'aX', 'aY', 'Biltype', 'bX', 'bY']
 url1 = 'https://services.kortforsyningen.dk/?servicename=RestGeokeys_v2&method=koortrans'
 url2 = "http://localhost:5000/route/v1/driving/"
 
-# Use pandas fast csv parser to read the input file
+# use pandas fast csv parser to read the input file
 if not os.path.isfile(dataIn):
     x = "Could not find JSON with address at: {0}".format(dataIn)
     raise Exception(x)

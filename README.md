@@ -59,16 +59,16 @@ These are the skills I intend to acquire for becoming a **Data Engineer**.
 
 ---
 
-<br><br>
 Collection of Training Links
 ---
 1. [Python](#python)
 2. [R](#r)
 3. [Databases](#databases)
+4. [Bash](#bash)
+5. [LinuxOS](#linuxos)
+5. [Cloud Patform](#cloud platform)
 
-
-
-Please let me know if any links become outdated.
+**__Please let me know if any links become outdated.__**
 
 <br><br>
 [Python](#contents)
@@ -76,8 +76,9 @@ Please let me know if any links become outdated.
 
 * [Automate the Boring Stuff with Python](https://automatetheboringstuff.com/): A good read for those who want a hands on approach. The [book](https://nostarch.com/automatestuff) contents are available for free on the website, as well as a [Udemy course](https://www.udemy.com/automate/?couponCode=FOR_LIKE_10_BUCKS).
 
-* [CS109 Data Science](http://cs109.github.io/2015/): A comprehensive course from Harvard's School of Engineering and Applied Sciences. It uses Python to crunch the data.
+* [AWS-data-wrangling](https://github.com/awslabs/aws-data-wrangler/tree/main/tutorials): A tutorial repository with many __ipython notebooks__ examples of how to process data with __python__ on __AWS services__, mostly using pandas and AWS wrangler.
 
+* [CS109 Data Science](http://cs109.github.io/2015/): A comprehensive course from Harvard's School of Engineering and Applied Sciences. It uses Python to crunch the data.
 
 * [DataCamp Community Tutorials](https://www.datacamp.com/community/tutorials): Tutorials, some of which are user-created, on Python, SQL, Git, R & statistics, etc ...
 
@@ -87,11 +88,11 @@ Please let me know if any links become outdated.
 
 * [Python Course](https://www.python-course.eu/python3_course.php): Comprehensive and free tutorial, reaching up to advanced OOP, passing through, _Numerical Python_, to inlcude _Machine Learning_ and _Tkinter_.
 
+* [PyEnv Tutorial](https://github.com/pyenv/pyenv): An alternative to Conda, this tutorial works on yet another way to safely create __virtual environments__ (directories where to isolate a recipie of python binaries and required libraries for a task) managed by __pip__ on Windows or MacOS.
+
 * [StatsModels Tutorial](https://github.com/jseabold/tutorial): This is repository of _Jupyter Notebooks_ dealing with the [StatsModels](https://www.statsmodels.org/stable/index.html) module, for those interested on statistics with Python.
 
 * [SciPy Lecture Notes](http://www.scipy-lectures.org/): A brief (1-2 hours per module) introduction to the tools and techniques of Python's [SciPy](https://www.scipy.org/) module.
-
-
 
 <br><br>
 [R](#contents)
@@ -116,10 +117,6 @@ Please let me know if any links become outdated.
 
 * [Quick-R](https://www.statmethods.net/): A website dedicated to helping individuals with some background in statistics transition to R.
 
-
-
-
-
 <br><br>
 [Databases](#contents)
 ---
@@ -128,4 +125,22 @@ Please let me know if any links become outdated.
 
 * [Database minicourses from Stanford](https://lagunita.stanford.edu/courses/DB/2014/SelfPaced/about): A thorough introduction to databases, mostly relational databases, SQL, and database design.
 
+* [PSQL Cheatsheet](https://gist.github.com/Kartones/dd3ff5ec5ea238d4c546): A repository containing a concise collection of commands for PSQL, which is a command-line program, one of the available front-end tools for administering the relational database PostgreSQL. Its shell-like approach offer the possibility for writing scripts, and thus the automation of tasks.
 
+<br><br>
+[Bash](#contents)
+---
+
+
+<br><br>
+[LinuxOS](#contents)
+---
+* [LPIC-2](https://github.com/lpic2book/src/): Git repository where to find exam materials in preparation for the Linux Professional Institute Certification, intermediate level.
+
+
+
+<br><br>
+[Cloud Platform](#contents)
+---
+
+* [AWS Templates](https://github.com/awslabs/aws-cloudformation-templates/tree/master/aws): Repository of __json__ and __yaml__ templates to start your IaC deployment of AWS cloud ressources.
