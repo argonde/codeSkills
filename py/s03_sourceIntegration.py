@@ -338,23 +338,23 @@ def current_version(wd_):
 ###################################################################################################
 ###################################################################################################
 # Define global variables and create the needed dictionaries
-out_path = r"/media/r/Luintra1/work/pj_2010_python_ETL_checkForeignKeys/_data/_pyOutput/tmp/"
-out_csv = r"/media/r/Luintra1/work/pj_2010_python_ETL_checkForeignKeys/_data/_pyOutput/csv_out/"
-in_path = r"/media/r/Luintra1/work/pj_2010_python_ETL_checkForeignKeys/_data/_orgnl/0Samlet_data/"
-file_search = ("Andenakvatiskflora.xlsx", "Angiosperm_marin.xlsx", "ba3_grundvand_geometri.shp",
-               "ba3_grundvand_maalestation.shp", "ba3_marin_geometri.shp", "ba3_marin_maalestation.shp",
-               "ba3_soe_geometri.shp", "ba3_soe_maalestation.shp", "ba3_vandloeb_geometri.shp",
-               "ba3_vandloeb_maalestation.shp", "Baggrundsdata_vandløb.xlsx", "Bunddyrindeks.xlsx", "Datamodellen.xlsx",
-               "DKI_marin.xlsx", "Fiskeindeks.xlsx", "Fytobenthosindeks.xlsx", "Fytoplankton_marin.xlsx",
-               "Fytoplanktonindeks.xlsx", "gwPollutant.accdb", "gwPollutant_baggrundsdata.accdb", "Ilt_marin.xlsx",
-               "Indsatser_sø.xlsx", "Indsatser_vandløb.xlsx", "Klorofyldata.xlsx", "Lys_marin.xlsx",
-               "Makroalger_marin.xlsx", "Marin_Tilstandsvurdering.xlsx", "MFS_BaggrundsdataKemiskTilstand.xlsx",
-               "MFS_BaggrundsdataOekologiskTilstandQE.xlsx", "MFS_MonitoringSite.xlsx", "MFS_QualityElement.xlsx",
-               "MFS_SurfaceWaterBody.xlsx", "MFS_SWB_SWPrioritySubstance.xlsx", "Næringsstofindeks.xlsx",
-               "RDB_Punktkilder.xlsx", "RDB_Vandlob_Spaerring.xlsx", "Sigtdybdeindeks.xlsx", "Undtagelser_marin.xlsx",
-               "Undtagelser_MFS.xlsx", "Undtagelser_sø.xlsx", "Undtagelser_vandløb.xlsx", "Vegetationindeks.xlsx",
-               "vp2_2016hovedvandoplande.shp", "vp3_ba2019_grundvandsforekomster.xlsx",
-               "vp3_ba2019_undtagelser_grundvand.xlsx", "vp3b_2019_vanddistrikter.shp", "VP3Master_basis_a_2019.csv")
+out_path = r"/path/to/work/_data/_pyOutput/tmp/"
+out_csv = r"/path/to/work/_data/_pyOutput/csv_out/"
+in_path = r"/path/to/work/_data/_orgnl/0Samlet_data/"
+file_search = ("Andexxxxxxxa.xlsx", "Angxxxxxxxxn.xlsx", "bxxxxxxxxxxxxi.shp",
+               "bxxxxxxxxxxxn.shp", "bxxxxxxxxxxxi.shp", "bxxxxxxxxxxxxxxxxxxn.shp",
+               "bxxxxxxxxxxxxxxxxx.shp", "bxxxxxxxxxxxxxxxn.shp", "baxxxxxxxxxxxxxxxxx.shp",
+               "bxxxxxxxxxxxxxxxxxn.shp", "Baxxxxxxxxxxxxb.xlsx", "Bxxxxxxxxxxxxxx.xlsx", "Dxxxxxxxxxxxn.xlsx",
+               "Dxxxxxxxxxxxxxx.xlsx", "Fxxxxxxxxxxxxxxxx.xlsx", "Fxxxxxxxx.xlsx", "Fxxxxxxxxxxxn.xlsx",
+               "Fxxxxxxxxxxxxxx.xlsx", "gxxxxxxxxxxx.accdb", "gxxxxxxxxxxxx.accdb", "Ixxxxxxxxxxxxxx.xlsx",
+               "Ixxxxxxxxxxxxxxxxx.xlsx", "Ixxxxxxxxxx.xlsx", "Kxxxxxxxxxxxxxx.xlsx", "Lxxxxxxxxxxxxxxx.xlsx",
+               "Mxxxxxxxxxxxxxxxn.xlsx", "Maxxxxxxxxxxxxx.xlsx", "Mxxxxxxxxxxxxxxxxxxxxxxxxxxd.xlsx",
+               "Mxxxxxxxxxxxxxxxxxxxxxxx.xlsx", "Mxxxxxxxxxxxe.xlsx", "Mxxxxxxxxxxxxxxxxxxxx.xlsx",
+               "Mxxxxxxxxxxxxxxxxxxxxxx.xlsx", "Mxxxxxxxxxxxxxxxxxxxx.xlsx", "Nxxxxxxxxxxxxxxxxxx.xlsx",
+               "Rxxxxxxxxxxxxxx.xlsx", "Rxxxxxxxxxxxxxxxxxxx.xlsx", "Sxxxxxxxxxxx.xlsx", "Uxxxxxxxxxxxxxxxxxxxxxx.xlsx",
+               "Uxxxxxxxxxxxx.xlsx", "Uxxxxxxxxxxxxx.xlsx", "Uxxxxxxxxxxxxxx.xlsx", "xxxxxxxxxxxxxxx.xlsx",
+               "vxxxxxxxxxxxxxxxxxxxxxxxxxxxx.shp", "vxxxxxxxxxxxxxxxxxxxxxxxxxx.xlsx",
+               "vxxxxxxxxxxxxxxxxxxxxxx.xlsx", "vxxxxxxxxxxxxxxxxxxxxx.shp", "Vxxxxxxxxxxxxxxxxx.csv")
 # Create dynamic variable lists for the Access database tables
 gwPollutant = []
 gwPollutant_baggrundsdata = []
@@ -433,7 +433,7 @@ for fil in file_list:
     # Convert all shp to csv and load as data.frame
     elif fil[-4:] == ".shp":
         # Give a name to the output file.
-        print("Converting %s til csv" % fil)
+        print("Converting %s to csv" % fil)
         csv_file = str(fil[:-4]) + ".csv"
         # Define the input file.
         in_shp = file_list.get(str(fil))
