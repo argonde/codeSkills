@@ -103,7 +103,7 @@ Collection of Training Links
 
 * [StatsModels Tutorial](https://github.com/jseabold/tutorial): This is repository of _Jupyter Notebooks_ dealing with the [StatsModels](https://www.statsmodels.org/stable/index.html) module, for those interested on statistics with Python.
 
-* [SciPy Lecture Notes](http://www.scipy-lectures.org/): A brief introduction to the tools and techniques of Python's [SciPy](https://www.scipy.org/ module.
+* [SciPy Lecture Notes](http://www.scipy-lectures.org/): A brief introduction to the tools and techniques of Python's [SciPy](https://www.scipy.org/) module.
 
 <br><br>
 [R](#contents)

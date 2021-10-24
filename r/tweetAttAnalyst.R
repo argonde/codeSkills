@@ -86,8 +86,8 @@ userTimeline(t, n=2)
 
 # Step clean up
 rm(list = c('consumer_key', 'consumer_secret', 'access_token', 'access_token_secret',
-'tweets', 'tweetsxf', 'feed', 'trend', 'trenDk', 't', 'followers', 'conn', 'i', 'linn',
-'nm'))
+            'tweets', 'tweetsxf', 'feed', 'trend', 'trenDk', 't', 'followers', 'conn',
+            'i', 'linn', 'nm'))
 
 ###################################################################################
 ## STEP3 - Attitude Analysis
@@ -325,8 +325,14 @@ corpus <- tm_map(corpus, gsub, pattern = "â€¦", replacement = " ")
 corpus <- tm_map(corpus, gsub, pattern = "http", replacement = " ")
 corpus <- tm_map(corpus, gsub, pattern = "thank", replacement = "thanks")
 corpus <- tm_map(corpus, gsub, pattern = "thankss", replacement = "thanks")
-corpus <- tm_map(corpus, removeWords, c("amp", "smith", "alex", "chris", "scott", "david", "james", "michael", "brian", "singh", "rafizi", "ben", "ian", "yang", "ramli", "martin", "armstrong"))
-corpus <- tm_map(corpus, removeWords, c("sumishacna", "stephen", "jones", "chris", "tu0085", "john", "atkins", "itu0092s", "pkr", "sophie", "gerwen", "lawson", "100000", "donnelly", "jack"))
+corpus <- tm_map(corpus, removeWords, c("amp", "smith", "alex", "chris", "scott",
+                                        "david", "james", "michael", "brian", "singh",
+                                        "rafizi", "ben", "ian", "yang", "ramli",
+                                        "martin", "armstrong"))
+corpus <- tm_map(corpus, removeWords, c("sumishacna", "stephen", "jones", "chris",
+                                        "tu0085", "john", "atkins", "itu0092s", "pkr",
+                                        "sophie", "gerwen", "lawson", "100000",
+                                        "donnelly", "jack"))
 # Term document matrix
 (tdm <- TermDocumentMatrix(corpus))
 tdm <- as.matrix(tdm)
@@ -390,7 +396,9 @@ corpus <- tm_map(corpus, removeWords, (stopwords('english')))
 corpus <- tm_map(corpus, gsub, pattern = "\n", replacement = " ")
 corpus <- tm_map(corpus, gsub, pattern = "â€¦", replacement = " ")
 corpus <- tm_map(corpus, gsub, pattern = "http", replacement = " ")
-corpus <- tm_map(corpus, removeWords, c("amp", "mikequindazzi", "gtgt", "su0085", "iu0085", "btstwt", "hallaboutafrica", "dagga", "jamie", "oliver", "masak"))
+corpus <- tm_map(corpus, removeWords, c("amp", "mikequindazzi", "gtgt", "su0085",
+                                        "iu0085", "btstwt", "hallaboutafrica",
+                                        "dagga", "jamie", "oliver", "masak"))
 
 # Term document matrix
 (tdm <- TermDocumentMatrix(corpus))
@@ -443,13 +451,18 @@ setwd("D:/path/to/R/_dataSets/tweets/attAnalysis")
 
 # cosine similarity
 #d <- read.csv("attxfoss.csv", header = F)
-d <- as.vector(c(0.1585976628, 0.4724540902, 0.0767946578, 0.1285475793, 0.4207011686, 0.1185308848, 0.2003338898, 0.7662771285, 0.2687813022, 1.0868113523))
+d <- as.vector(c(0.1585976628, 0.4724540902, 0.0767946578, 0.1285475793, 0.4207011686,
+                 0.1185308848, 0.2003338898, 0.7662771285, 0.2687813022, 1.0868113523))
 
 #f <- read.csv("attxBsfollowers.csv", header = F)
-#f <- as.vector(c(0.1769688232, 0.374301676, 0.111010993, 0.221481348, 0.2977112993, 0.1839971166, 0.1742656334, 0.5170300955, 0.3852946477, 0.7920346008))
-fBs <- as.vector(c(0.1915975885, 0.3918613414, 0.0821401658, 0.2449133384, 0.3108515448, 0.169743783, 0.1578749058, 0.5212886209, 0.3652976639, 0.9142803316))
-fOr <- as.vector(c(0.1674749924, 0.3796605032, 0.1350409215, 0.2371930888, 0.3540466808, 0.1949075477, 0.1908153986, 0.5215216732, 0.3807214307, 0.8488936041))
-fPr <- as.vector(c(0.2192109145, 0.3753687316, 0.2031710914, 0.2802359882, 0.3049410029, 0.2407817109, 0.1825221239, 0.5348451327, 0.5025811209, 0.7835545723))
+#f <- as.vector(c(0.1769688232, 0.374301676, 0.111010993, 0.221481348, 0.2977112993,
+#                 0.1839971166, 0.1742656334, 0.5170300955, 0.3852946477, 0.7920346008))
+fBs <- as.vector(c(0.1915975885, 0.3918613414, 0.0821401658, 0.2449133384, 0.3108515448,
+                   0.169743783, 0.1578749058, 0.5212886209, 0.3652976639, 0.9142803316))
+fOr <- as.vector(c(0.1674749924, 0.3796605032, 0.1350409215, 0.2371930888, 0.3540466808,
+                   0.1949075477, 0.1908153986, 0.5215216732, 0.3807214307, 0.8488936041))
+fPr <- as.vector(c(0.2192109145, 0.3753687316, 0.2031710914, 0.2802359882, 0.3049410029,
+                   0.2407817109, 0.1825221239, 0.5348451327, 0.5025811209, 0.7835545723))
 
 #cosine similarity calculation
 dprod <- d%*%fBs
