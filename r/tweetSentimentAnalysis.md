@@ -1,4 +1,4 @@
-Tweet Attitude Analysis
+Tweet Sentiment Analysis
 =====================
 
 ### Fetched 1000 xFoss followers and tested the first available 100.
@@ -43,7 +43,7 @@ Tweet Attitude Analysis
 
     - Other (none of the above)
 
-5. In relation to the attitude analysis, I had a response to 10 variables to form the vectors:
+5. In relation to the sentiment analysis, I had a response to 10 variables to form the vectors:
 
     anger | anticipation | disgust | fear | joy | sadness | surprise | trust | negative | positive
 
@@ -79,7 +79,7 @@ This means that in absolute terms the values of private followers are least rela
 
 ---
 
-Other customised vectors were as well tried. The attitude variables can be also classified into:
+Other customised vectors were as well tried. The sentiment variables can be also classified into:
 
    Affective (ruled by emotion) | Behavioural (by experience) | Cognitive (by norms & beliefs)
 
