@@ -1,5 +1,15 @@
 Tweet Sentiment Analysis
 =====================
+### Motivation
+---
+
+Using R's 'twitteR' package to gather tweets, the 'tm' package to prepare the corpus of those messages, and the dot product of their sentiment analysis vectors, this R file attempts to establish a measurement of similarity in discourse, and a threshold to diconnected discourse.  
+
+Given that the dot product is calculated on data streams, synchronous samples of tweets obtained at intervals, this tool may find use as a SoMe alert. It marks periods of time when the sentiment of SoMe business discourse can be labeled as disconnected from that of its followers.  
+
+The use of the R package 'wordcloud' should get an insight into the topics on which such disconnect is happening.
+
+---
 
 ### Fetched 1000 xFoss followers and tested the first available 100.
 
@@ -78,6 +88,8 @@ Results have been normalised (avg), and will tend to show a large degree of simi
 This means that in absolute terms the values of private followers are least related to xFoss, but in terms of the direction, their central tendency vectors are similar.
 
 ---
+### Final Results
+
 
 Other customised vectors were as well tried. The sentiment variables can be also classified into:
 

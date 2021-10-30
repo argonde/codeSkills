@@ -45,12 +45,12 @@ if '-N' in sys.argv:
 # Declare project variables
 dataIn = os.path.join(directory_loc, csv_input)
 result = os.path.join(directory_loc, csv_output)
-columns = ['Id', 'Mængde', 'aX', 'aY', 'Biltype', 'bX', 'bY']
+columns = ['Id', 'Quantity', 'aX', 'aY', 'vehicleType', 'bX', 'bY']
 url1 = 'https://services.kortforsyningen.dk/?servicename=RestGeokeys_v2&method=koortrans'
 url2 = "http://localhost:5000/route/v1/driving/"
 
 # use pandas fast csv parser to read the input file
-if not os.path.isfile(dataIn):
+if not os.path.isfile(dataIn)
     x = "Could not find JSON with address at: {0}".format(dataIn)
     raise Exception(x)
 else:
@@ -92,7 +92,7 @@ else:
                     n = 0
                     for lon, lat in zip(blon, blat):
                         # translate points
-                        points = "&ingeop={0},{1}&token=038not25a00real3g0token93br36b21".format(
+                        points = "&ingeop={0},{1}&token=createKortfosyningAccountCreateToken".format(
                             lon, lat)
                         # send 1st request to kortforsyningen: translation to WGS84
                         r = url1 + str(points)
@@ -129,7 +129,7 @@ else:
                     n = 0
                     for lon, lat in zip(alon, alat):
                         # translate points 
-                        points = "&ingeop={0},{1}&token=038not25a00real3g0token93br36b21".format(
+                        points = "&ingeop={0},{1}&token=createKortfosyningAccountCreateToken".format(
                             lon, lat)
                         # send 1st request to kortforsyningen: translation to WGS84
                         r = url1 + str(points)

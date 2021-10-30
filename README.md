@@ -67,17 +67,25 @@ Collection of Training Links
 4. [Databases](#databases)
 5. [Bash](#bash)
 6. [LinuxOS](#linuxos)
-7. [Cloud Patform](#cloud_platform)
-8. [Containerisation](#containerisation)
-9. [IaC](#iac)
+7. [Markdown](#markdown)
+8. [Cloud Patform](#cloud_platform)
+9. [Containerisation](#containerisation)
+10. [IaC](#iac)
 
 **__Please let me know if any links become outdated.__**
+
+<br><br>
+**Looking for the all-encompassing awesome index page?**
+
+[`if [ -d AWESOME ]; then clickHere; fi`](https://github.com/sindresorhus/awesome)
 
 <br><br>
 [Python](#contents)
 ---
 
 * [Automate the Boring Stuff with Python](https://automatetheboringstuff.com/): A good read for those searching a hands-on approach. This website makes freely available the contents of the homonymous [book](https://nostarch.com/automatestuff).
+
+* [Awesome Python](https://github.com/vinta/awesome-python):  The 'Awesome' page to be found on GitHub, loaded with every piece of info you might never need on Python resources.
 
 * [AWS-data-wrangling](https://github.com/awslabs/aws-data-wrangler/tree/main/tutorials): A tutorial repository with many __ipython notebooks__, examples of how to process data with __python__ on [__AWS services__](https://docs.aws.amazon.com/index.html), that mostly use [__pandas__](https://pandas.pydata.org/pandas-docs/stable/getting_started/index.html) and __AWS wrangler__.
 
@@ -112,6 +120,8 @@ Collection of Training Links
 
 * [Advanced R](http://adv-r.had.co.nz/) Yet another website based on a book. It introduces the more advanced features of the R language, e.g. style, exception handling, functional programming, R's C interface, etc ...
 
+* [Awesome R Learning](https://github.com/iamericfletcher/awesome-r-learning-resources#readme): The 'Awesome' page to be found on GitHub, loaded with every piece of info you might never need on R resources.
+
 * [DataCamp Community Tutorials](https://www.datacamp.com/community/tutorials): Tutorials, some of which are user-created, on R, and as aforementioned also Python, SQL, Git, ...
 
 * [Data Wrangling](https://clayford.github.io/dwir): Very neat course notes from the University of Virginia, encompassing from basics, to R data structures, data manipulation, data washing and the "Tidy" approach. The corresponding R files are available at [Github](https://github.com/clayford/DataWranglingInR).
@@ -133,6 +143,7 @@ Collection of Training Links
 <br><br>
 [SQL](#contents)
 ---
+
 * [SQL exercises](https://pgexercises.com/): Best Creative Commons licensed site to practice and learn __SQL__ syntax.
 
 * [SQL Tutorials](https://www.sqltutorial.org/): A webpage structured around SQL commands and practical examples, that allow access to working with data (sorting, querying, filtering ...) and with defining database structures for database administrators or data analysts.
@@ -141,7 +152,9 @@ Collection of Training Links
 [Databases](#contents)
 ---
 
-* [Database course Stanford](https://online.stanford.edu/courses/soe-ydatabases-databases): A thorough introduction to databases, as well as one dedicated to [__relational databases__](https://online.stanford.edu/courses/soe-ydatabases0005-databases-relational-databases-and-sql), SQL, and database design.
+* [Awesome Postgres](#https://github.com/dhamaniasad/awesome-postgres):  The 'Awesome' page to be found on GitHub, loaded with every piece of info you might never need on PostgreSQL.
+
+* [Database course Stanford](https://online.stanford.edu/courses/soe-ydatabases-databases): A thorough introduction to databases, SQL, and database design. Here you will also find a course dedicated to [relational databases](https://online.stanford.edu/courses/soe-ydatabases0005-databases-relational-databases-and-sql).
 
 * [MongoDB Tutorial](https://docs.mongodb.com/manual/tutorial/getting-started/): Official website offering tutorials and manuals on some of the most frequently used operations on a noSQL database, as well as online [courses](https://university.mongodb.com/courses/catalog).
 
@@ -154,6 +167,7 @@ Collection of Training Links
 <br><br>
 [Bash](#contents)
 ---
+
 * [Bash Guide](https://tldp.org/LDP/Bash-Beginners-Guide/html/index.html): This a complete simple naked html guide to Bash scripting for beginners.
 
 * [Bash Handbook](https://github.com/denysdovhan/bash-handbook): Git repository where to find a complete guide for Bash scripting. If you are using a JavaScript runtime environment like Node.js, this handy book is available to download as a npm package.
@@ -171,13 +185,26 @@ Collection of Training Links
 * [LPIC-2](https://github.com/lpic2book/src/): Git repository where to find exam materials in preparation for the Linux Professional Institute Certification, intermediate level for __LinuxOS__ sysAdmins.
 
 <br><br>
+[Markdown](#contents)
+---
+
+* [Awesome Markdown](https://github.com/mundimark/awesome-markdown): The 'Awesome' page to be found on GitHub, loaded with every piece of info you might never need on Markdown markup language.
+
+* [Daringfireball](https://daringfireball.net/projects/markdown/basics): Yet another fantastic page on Markdown, providing a complete and detailed documentation on every feature of md's syntax.
+
+* [Markdown Tutorial](https://www.markdowntutorial.com/): A very nicely structured, step by step tutorial on Markdown, a very useful markup language for creating print-ready contents. Recomended for the well-structured and patient learner.
+
+* [Markdown Guide](https://www.markdownguide.org/basic-syntax/): A good read, capturing and synthesising Markdown syntax.
+
+<br><br>
 [Cloud Platform](#contents)
 ---
+
 * [AWS CLF CheatSheet](https://digitalcloud.training/certification-training/aws-certified-cloud-practitioner/): In-depth training notes for the AWS Practitioner (i.e. beginner) certification test.
 
 * [AWS SAA CheatSheet](https://digitalcloud.training/certification-training/aws-solutions-architect-associate/): 
  These are in-depth training notes toward the intermediate level certification AWS Certified Solutions Architect–Associate ([__SAA-C02__](https://d1.awsstatic.com/training-and-certification/docs-sa-assoc/AWS-Certified-Solutions-Architect-Associate_Exam-Guide.pdf)) exam.
- 
+
 * [AWS SOA CheatSheet](https://digitalcloud.training/certification-training/aws-certified-sysops-administrator-associate/): These are in-depth training notes toward the intermediate level certification AWS Certified SysOps Administrator–Associate ([__SOA-C02__](https://d1.awsstatic.com/training-and-certification/docs-sysops-associate/AWS-Certified-SysOps-Administrator-Associate_Exam-Guide.pdf)) exam.
 
 * [AWS DVA CheatSheet](https://digitalcloud.training/certification-training/aws-developer-associate/): These are in-depth training notes toward the intermediate level certification AWS Certified Developer–Associate ([__DVA-C01__](https://d1.awsstatic.com/training-and-certification/docs-dev-associate/AWS-Certified-Developer-Associate_Exam-Guide.pdf)) exam.
