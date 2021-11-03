@@ -1,56 +1,182 @@
 #!/bin/bash
 # Name - synchDirectories.sh
-# Purpose - Update files that have been modified, deleted or added recently,
-#           to mirror a directory to its backup or to a different stage dir.
+# Purpose - Update files that have been modified, deleted, or added recently
+#           to mirror a directory to a different stage dir, or for its backup.
+# -----------------------------------------------------------------------------
 
+# Save a very useful command on a variable. It will do the updating.
 SYNCH='cp -Ruvp'
 
 clear
-
+# Make sure the use introduces two and only two directories to synchronise
 if [ "$#" -ne 2 ]
 then
-  # make sure the use introduces two and only two directories to synchronise
+  # If not remind of the proper syntax
   printf "Error: input syntax.\nYou are using the script: %s\n\n" ${0//*\//}
   printf "Use: $0 [dir1] [dir2]\n\n"
   exit 1
 
+# Make sure that both arguments are actually directories
 elif [ ! -d "$1" ] || [ ! -d "$2" ]
 then
-  # prompt to validate the user input, this will disallow auto-creation
+  # Prompt to validate the user input and remind the user of the syntax
   printf "Error: insufficient input. Make sure either directory exist:\n
   $1\n
   $2\n
   Or check whether their path is correct.\n\nUsage: $0 [dir1] [dir2]\n\n"
   exit 1
 
+# If none of the above holds, then we have 2 and only 2 directories to synch.
 else
+  # Save arguments into their var names and free them as variables
   DIR1=${1%/}
   DIR2=${2%/}
   shift 2
 fi
 
-# Pass the command to execute the update or creation of files:
 echo 
 echo "synchronising $DIR1/ to $DIR2/ in progress:"
-echo && $SYNCH $DIR1/. $DIR2/
-
-# Loop through the directories and check for deleted files:
-for i in $(find $DIR2 \( ! -wholename $DIR2 \)); do
-  if [ -d "$i" ]; then
-    DNAME=${i##*/} && ls -R ${DIR1}/* | grep -q $DNAME &>/dev/null &&
-    cd $i/ && continue
-    # otherwise remove the directory
-    printf "removing --> %s\n" "$i"
-    rm -rf "$i"
-
-  else
-    FNAME=${i##*/} && ls -R ${DIR1}/* | grep -q $FNAME &>/dev/null && continue
-    # otherwise remove the file
-    printf "removing --> %s\n" "$i"
-    rm -f "$i"
-  fi
-done
 echo
 
-echo Done! && echo
+# Set the shell option to remove non-matching globs:
+shopt -s nullglob
+
+# Declare local variables & allocate a recursive subdirectory list to an array:
+D1ARRAY=($(ls -R $DIR1))
+D2ARRAY=($(ls -R $DIR2))
+DCOUNT=0
+FCOUNT=0
+HOST=$(uname -n)                               # Get host machine name
+TSTAMP=$(date +%Y%m%d-%H%M%S)                  # Get time stamp with date
+TMPDIR=$(mkdir /var/tmp/$HOST\_$TSTAMP\_Synch) # Make subdirectory in /var/tmp
+F1DIR=''
+
+echo --------------------------------------------------------------------------
+# Loop through the array of directories and check for deleted files:
+for i in "${D2ARRAY[@]}"; do
+  # The 'ls' command recursively uses explanatory lines ending in ":"
+  LastCHAR2="${i:${#i} - 1}"
+
+  : '
+  Can be implemented as a function "retrieve_path()"
+  
+  If the line ends in ":"
+  save the path on the DIR2 name variable
+  increase the count of items, as well as directories
+  and, since it is only for explanatory printing, skip this line
+  '
+  [[ "$LastCHAR2" == ":" ]] && D2NAME=${i::${#i} - 1} &&
+  DCOUNT=$((DCOUNT+1)) && FCOUNT=$((FCOUNT+1)) && continue
+
+  # Check whether the item is a file or directory
+  F2DIR="${D2NAME}/$i"
+  FCOUNT=$((FCOUNT+1))
+  echo
+  #echo "'cd' count: $DCOUNT"
+  #echo item count: $FCOUNT
+  echo current ITEM: $F2DIR
+  echo
+
+  #---------------------------------------------------------------------------- 
+
+  # If it is a directory, then ... (obs. it may as well be a symlink to a dir)
+  ls -R $DIR1/ | grep -q $i && if [ -d "$F2DIR" ]
+  then 
+    # .. is such item as well a directory on DIR1?
+    # Retrieve the corresponding directory path on DIR1 (i.e."retrieve_path()")
+    for j in "${D1ARRAY[@]:0:$FCOUNT}"; do
+      LastCHAR1="${j:${#j} - 1}"
+      [[ "$LastCHAR1" == ":" ]] && D1NAME=${j::${#j} - 1}
+      F1DIR="${D1NAME}/${j}"
+    done
+    echo referral DIR: $F1DIR && echo
+
+    # Check whether the dir in DIR2 is dir in DIR1
+    if [ -d "$F1DIR" ]; then echo "$F1DIR is also a DIR"
+    # If there is a miss match ...
+    else
+      # prompt the user whether to delete or move the dir to /var/tmp/
+      while [[ ! $REPLY =~ ^[MmDd]$ ]]; do
+        printf "There is a mismatch between: \n$F2DIR\n$F1DIR\n" && echo
+        printf "$F2DIR is a DIRECTORY,\nwhile $F1DIR is a FILE.\n\n"
+        printf "    m [move the dir to /var/temp/]\n"
+        printf "    d [delete the dir forever]\n\n"
+        read -p "Would you like to move or delete the file? [m|d] " -n 1 -r
+        echo
+        # Save the conflicting directory temporarily
+        if [[ $REPLY =~ ^[Mm]$ ]]
+        then
+          mv -vf $F2DIR "${TMPDIR}/$j/"
+        elif [[ $REPLY =~ ^[Dd]$ ]]
+        then
+          # Otherwise remove the directory
+          printf "removing --> %s\n" "$i"
+          rm -rf "$i"
+        else
+          printf "\n\nWrong parameter. Enter 'm' or 'd'.\n"
+          echo -----------------------------------
+        fi
+      done
+    fi
+    echo ----------------------------------------------------------------------
+
+  # or else the item is a file (i.e. of other kind)
+  else
+    # .. is such item as well a file on DIR1?
+    # Retrieve the corresponding directory path on DIR1 (i.e."retrieve_path()")
+    for j in "${D1ARRAY[@]:0:$FCOUNT}"; do
+      LastCHAR1="${j:${#j} - 1}"
+      [[ "$LastCHAR1" == ":" ]] && D1NAME=${j::${#j} - 1}
+      F1DIR="${D1NAME}/${i}"
+    done
+    echo referral FILE: $F1DIR && echo
+
+    if [ -f "$F1DIR" ]; then echo "$F1DIR is also a FILE"
+    else
+      # prompt the user whether to delete or move the file to /var/tmp/
+      while [[ ! $REPLY =~ ^[MmDd]$ ]]; do
+        printf "There is a mismatch between: \n$F2DIR\n$F1DIR\n" && echo
+        printf "$F2DIR is a FILE,\nwhile $F1DIR is a DIRECTORY.\n\n"
+        printf "    m [move the file to /var/temp/]\n"
+        printf "    d [delete the file forever]\n\n"
+        read -p "Would you like to move or delete the file? [m|d] " -n 1 -r
+        echo
+        # Save the conflicting file temporarily
+        if [[ $REPLY =~ ^[Mm]$ ]]
+        then
+          mv -vf $F2DIR "${TMPDIR}/$j/"
+        elif [[ $REPLY =~ ^[Dd]$ ]]
+        then
+          # Otherwise remove the file
+          printf "removing --> %s\n" "$i"
+          rm -f "$i"
+        else
+          printf "\n\nWrong parameter. Enter 'm' or 'd'.\n"
+          echo -----------------------------------
+        fi
+      done
+    fi
+    echo ----------------------------------------------------------------------
+  fi
+
+  #----------------------------------------------------------------------------
+  # Otherwise (i.e. if the item is not found on the referred $DIR1),
+  # that means someone has created a file (directories are also files in Linux)
+  # directly on $DIR2, causing an update conflict. So, promt user:
+
+  # Either do nothing on that file
+
+  # Temporarily move the file to /var/tmp/ (will eventually be deleted)
+
+  # Or do remove the file
+  printf "removing --> %s\n" "$i"
+  [[ -f "$F2DIR" ]] && rm -f "$i"
+  [[ -d "$F2DIR" ]] && rm -rf "$i"
+
+done && echo
+# Pass the command to execute the update or creation of files on DIR2
+$SYNCH $DIR1/. $DIR2/
+echo
+
+echo "Done!" && echo
 exit 0
